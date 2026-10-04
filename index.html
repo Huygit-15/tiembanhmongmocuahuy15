@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tiệm Bánh Mộng Mơ</title>
+<style>
+:root{
+ --ink:#4b302a;--muted:#7b625a;--paper:#fffaf0;--pink:#ef86a5;
+ --cream:#ffe9c8;--green:#9fd5bd;--danger:#df5e6e;--gold:#f0bd54;
+ --shadow:0 12px 35px rgba(70,45,35,.14)
+}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif;
+ background:radial-gradient(circle at 15% 5%,#fff 0 12%,transparent 35%),linear-gradient(135deg,#ffe6ee,#fff4d8 48%,#e6f7ee);min-height:100vh}
+button,input{font:inherit} button{cursor:pointer}
+#app{max-width:1240px;margin:auto;padding:14px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 16px;background:#fffdf7e8;border:2px solid #fff;border-radius:24px;box-shadow:var(--shadow);position:sticky;top:10px;z-index:10;backdrop-filter:blur(8px)}
+.logo{font-size:clamp(20px,3vw,31px);font-weight:950;letter-spacing:-1px}.logo span{color:#e45f83}
+.stats{display:flex;flex-wrap:wrap;gap:7px;justify-content:flex-end}.stat{background:#fff2d3;padding:7px 10px;border-radius:13px;font-weight:850;font-size:13px}
+main{display:grid;grid-template-columns:1.45fr .75fr;gap:16px;margin-top:16px}
+.panel{background:#fffdf8ef;border:2px solid #fff;border-radius:26px;box-shadow:var(--shadow);padding:16px}
+.cabinet-wrap{background:linear-gradient(180deg,#fff8ef,#f8eadb);border-radius:20px;padding:9px;margin-bottom:14px;border:1px solid #ead9c7}
+.cabinet-wrap img{width:100%;height:165px;object-fit:contain;display:block;filter:drop-shadow(0 8px 9px rgba(70,40,30,.12))}
+.shopline{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:7px}.shopname{font-size:21px;font-weight:950}.open{font-size:13px;background:#e7f7ef;border-radius:99px;padding:5px 9px;font-weight:850}
+.orderhead{display:flex;justify-content:space-between;align-items:center;gap:10px}.customer{font-weight:950;font-size:19px}.clock{font-weight:950;background:#fff0f4;border-radius:12px;padding:7px 10px}
+.bubble{margin:9px 0;background:#fff0f4;padding:12px 14px;border-radius:17px;font-weight:750}
+.timer{height:10px;background:#e7ddd4;border-radius:99px;overflow:hidden}.timer i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#9bd5bd,#f2c15e,#eb718c)}
+.order{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}.mini{background:#fff;border:2px solid #eadfd7;border-radius:13px;padding:7px 9px;font-size:13px;font-weight:850}.mini.ok{border-color:#83cbb0;background:#eefaf4}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.cake{position:relative;border:2px solid #eadfd7;background:#fff;border-radius:18px;padding:7px;min-height:170px;display:flex;flex-direction:column;justify-content:center;align-items:center;transition:.16s;box-shadow:0 5px 14px #0000000d}.cake:hover{transform:translateY(-4px);border-color:#ef91ad}.cake:active{transform:scale(.97)}.cake img{width:100%;height:108px;object-fit:contain}.cake b{font-size:13px}.price{font-size:11px;color:var(--muted);margin-top:2px}.stock{position:absolute;right:6px;top:6px;background:#4b302a;color:#fff;border-radius:99px;padding:3px 6px;font-size:10px;font-weight:900}
+.controls{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}.controls button,.shop-btn{border:0;border-radius:13px;padding:10px 12px;font-weight:900}.restock{background:#4b302a;color:white}.skinshop{background:#f5d58b}.tablebox{margin-top:12px;background:#fff7ea;border-radius:17px;padding:11px}
+table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:left;padding:6px;border-bottom:1px dashed #ead8c9}th{font-size:11px;color:#7c6259}.profit{font-weight:900;color:#438467}
+.side h2{margin:0 0 9px}.rating{display:flex;align-items:center;justify-content:space-between;background:#fff0f4;padding:12px;border-radius:17px}.stars{font-size:25px;letter-spacing:1px}.rating b{font-size:24px}.meter{height:8px;background:#eadfd7;border-radius:99px;overflow:hidden;margin-top:8px}.meter i{display:block;height:100%;background:#efb24f;width:100%}.box{background:#f4fbf8;border-radius:17px;padding:11px;margin-top:10px}.box b{display:block;margin-bottom:6px}.skinlist{display:grid;grid-template-columns:1fr 1fr;gap:8px}.skin{background:#fff;border:2px solid #eadfd7;border-radius:15px;padding:5px;text-align:left;position:relative}.skin img{width:100%;height:68px;object-fit:contain}.skin strong{font-size:12px}.skin small{display:block;color:#78625b}.skin button{border:0;border-radius:10px;padding:5px 7px;font-size:11px;font-weight:900;margin-top:5px;background:#4b302a;color:white}.skin.equipped{border-color:#83cbb0;background:#effaf5}.skin.locked button{background:#f0c26c;color:#5a3b1c}.log{max-height:145px;overflow:auto;font-size:12px}.queue{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.queue span{background:#fff0d8;border:1px solid #f0d4a4;border-radius:10px;padding:5px 8px;font-size:12px;font-weight:800}.reviews{max-height:190px;overflow:auto}.reviews div{font-size:12px;padding:8px 0;border-bottom:1px dashed #e7d8cf}.modal .secondary{background:#f4d58d;color:#573d22;margin:5px}.modal input{width:90px;padding:8px;border:1px solid #dfc9b7;border-radius:9px}.log div{padding:6px 0;border-bottom:1px dashed #e7d8cf}
+.overlay{position:fixed;inset:0;background:#3f2825b8;display:none;align-items:center;justify-content:center;padding:18px;z-index:50}.modal{max-width:520px;width:100%;background:#fffdf7;border-radius:28px;padding:25px;text-align:center;box-shadow:0 25px 90px #0005}.modal h1{margin:4px 0;font-size:34px}.modal p{line-height:1.6}.modal button{border:0;border-radius:13px;padding:11px 15px;font-weight:900;background:#e56f91;color:#fff}
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,25px);opacity:0;pointer-events:none;background:#4b302a;color:#fff;border-radius:99px;padding:10px 16px;font-weight:900;transition:.22s;z-index:60}.toast.show{opacity:1;transform:translate(-50%,0)}
+.start{position:fixed;inset:0;background:linear-gradient(135deg,#ffe8ef,#fff4d6);display:flex;align-items:center;justify-content:center;padding:20px;z-index:100}.startbox{max-width:520px;width:100%;background:#fffdf7;border-radius:30px;padding:30px;box-shadow:var(--shadow);text-align:center}.startbox h1{margin:0 0 8px;font-size:36px}.startbox p{line-height:1.55;color:#705c55}.startbox input{width:100%;padding:13px 15px;border:2px solid #eadcd2;border-radius:14px;outline:0;margin:10px 0}.startbox button{width:100%;border:0;border-radius:14px;padding:13px;background:#e56f91;color:white;font-weight:950;font-size:16px}
+.setup-note{background:#fff5df;border:1px solid #efd6aa;border-radius:15px;padding:10px;text-align:left;font-size:13px}.setup-row{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fff;border:2px solid #eadfd7;border-radius:15px;padding:10px;text-align:left}.setup-row img{width:72px;height:72px;object-fit:contain}.setup-row input{width:90px!important;margin:0!important;text-align:center}
+@media(max-width:850px){#app{padding:8px}main{grid-template-columns:1fr;gap:10px}.side{order:-1}header{position:static;border-radius:18px;padding:10px;align-items:flex-start}.logo{font-size:20px}.stats{gap:4px}.stat{padding:6px 7px;font-size:11px}.panel{border-radius:20px;padding:11px}.cabinet-wrap img{height:125px}.shopline{align-items:flex-start}.shopname{font-size:17px}.controls{display:grid;grid-template-columns:1fr 1fr}.controls button{width:100%;min-height:44px}.cake{min-height:145px;touch-action:manipulation}.cake img{height:82px}.orderhead{align-items:flex-start}.customer{font-size:16px}.bubble{font-size:13px}.side h2{font-size:19px}.reviews{max-height:150px}.skinlist{grid-template-columns:repeat(3,1fr)}.skin img{height:60px}.modal{max-height:92vh;overflow:auto;padding:18px;border-radius:22px}}
+@media(max-width:520px){.grid{grid-template-columns:repeat(2,1fr)}.skinlist{grid-template-columns:repeat(2,1fr)}.stats{justify-content:flex-start}.stats .stat:nth-child(3){display:none}.tablebox{overflow-x:auto}.tablebox table{min-width:430px}.expiry-row,.restock-row{align-items:flex-start;flex-direction:column}.expiry-row>span:last-child{width:100%;display:flex}.expiry-row button{flex:1}.restock-row label{width:100%;display:flex;justify-content:space-between;align-items:center}.modal h1{font-size:26px}}
+.expiry-list,.restock-list{display:grid;gap:8px;text-align:left;margin:12px 0}.expiry-row,.restock-row{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#fff5e8;border:1px solid #ead8c9;border-radius:12px;padding:9px;font-size:13px}.expiry-row button{padding:7px 9px;margin:2px;font-size:12px}.restock-row input{width:64px;padding:7px;border:1px solid #dfc9b7;border-radius:8px}.muted{color:#7b625a;font-size:12px}
+@media(max-width:500px){.grid{grid-template-columns:1fr 1fr}.cake{min-height:150px}.cake img{height:90px}.skinlist{grid-template-columns:1fr 1fr}.stats .stat{font-size:11px}}
+
+.cake-locked{filter:saturate(.45);opacity:.72;background:#f7f3ee}.cake-locked:hover{transform:none;border-color:#eadfd7}.locked-row{background:#f3eee9!important;opacity:.82}.locked-input{font-weight:900;color:#8a6f64;background:#eadfd7;border-radius:10px;padding:8px 11px}.unlock-roadmap{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0;text-align:left}.unlock-roadmap span{background:#f4eee7;border:1px solid #e3d5c8;border-radius:99px;padding:5px 8px;font-size:11px;color:#806a61}.unlock-roadmap span.unlocked{background:#edf8f2;border-color:#b9ddcb;color:#3f725a}.audio-btn{background:#e8f2ee!important;color:#315d4b!important}.durability{font-weight:900;color:#4d705d}.repair-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}.wire{border:3px solid #eadfd7;background:#fff;border-radius:15px;padding:13px 8px;font-weight:950;min-height:62px;transition:.15s}.wire.selected{transform:scale(.96);box-shadow:0 0 0 4px #f0c26c}.wire.done{opacity:.35;pointer-events:none}.repair-timer{font-size:22px;font-weight:950;background:#fff0f4;border-radius:13px;padding:8px}.bill-box{background:#fff5df;border:1px solid #efd6aa;border-radius:15px;padding:10px;margin-top:10px}.bill-box strong{font-size:18px}@media(max-width:520px){.repair-grid{grid-template-columns:repeat(2,1fr)}.wire{min-height:56px;padding:10px 6px}}
+.overlay{align-items:flex-start;overflow-y:auto;overscroll-behavior:contain}.modal{margin:12px auto;max-height:calc(100dvh - 24px);overflow-y:auto;overscroll-behavior:contain}.modal::-webkit-scrollbar{width:8px}.modal::-webkit-scrollbar-thumb{background:#d9c7ba;border-radius:99px}
+</style>
+</head>
+<body>
+<div class="start" id="start">
+ <div class="startbox">
+  <div style="font-size:62px">🍰</div>
+  <h1>Tiệm Bánh Mộng Mơ</h1>
+  <p>Đặt tên tiệm của ngài. Một thương hiệu tử tế bắt đầu bằng cái tên, sau đó là bảng giá và một chút hoảng loạn khi khách xếp hàng.</p>
+  <input id="shopInput" maxlength="24" placeholder="Ví dụ: Tiệm Bánh Nhà Mình">
+  <button onclick="startGame()">🚪 Mở cửa tiệm</button>
+ </div>
+</div>
+
+<div class="overlay" id="setup">
+ <div class="modal">
+  <div style="font-size:54px">📦</div>
+  <h1>Nhập lô bánh đầu tiên</h1>
+  <p>Tiệm của bạn bắt đầu với <b>300 xu</b>. Trước khi mở cửa, hãy nhập hàng. Loại bánh khởi đầu duy nhất là <b>Bánh su kem</b>.</p>
+  <div class="setup-note">💡 Ngày 1 chỉ có Bánh su kem. Các loại bánh mới sẽ được mở khóa theo ngày cố định; phải chơi tới đúng ngày mới được nhập và bán.</div>
+  <div class="setup-row" style="margin-top:12px">
+   <div style="display:flex;align-items:center;gap:9px"><img src="assets/su-kem.png" alt="Bánh su kem"><div><b>Bánh su kem</b><br><small>8 xu/chiếc · bán 18 xu</small></div></div>
+   <label><b>Số lượng</b><input id="starterQty" type="number" min="1" max="30" value="10"></label>
+  </div>
+  <p id="starterCost" style="font-weight:900;margin:12px 0">Chi phí: 80 xu · Còn lại: 220 xu</p>
+  <button onclick="confirmStarterStock()">📦 Nhập hàng & mở tiệm</button>
+ </div>
+</div>
+
+<div id="app">
+<header>
+ <div class="logo">🍰 <span id="shopTitle">Tiệm Bánh</span></div>
+ <div class="stats">
+  <div class="stat">💰 <span id="money">300</span> xu</div>
+  <div class="stat">⭐ Lv.<span id="level">1</span></div>
+  <div class="stat">🔥 Combo <span id="combo">0</span></div>
+  <div class="stat">🕐 <span id="gameClock">08:00</span></div>
+ </div>
+</header>
+
+<main>
+<section class="panel">
+ <div class="cabinet-wrap">
+   <div class="shopline"><div class="shopname" id="cabinetName">Tủ bánh • Basic</div><div class="open">🧲 +<span id="attract">0</span>% · 🛡️ <span id="durability">35</span>% bền</div></div>
+   <img id="cabinet" src="assets/cabinet_skins/classic.png" alt="Tủ bánh">
+ </div>
+
+ <div class="orderhead"><div class="customer" id="customer">Khách đang tới...</div><div class="clock">⏱️ Kiên nhẫn <span id="orderTime">30</span>s</div></div>
+ <div class="queue" id="queue"><span>🧍 Hàng chờ: 0 khách</span></div>
+ <div class="bubble" id="bubble">Chuẩn bị bánh cho khách đầu tiên.</div>
+ <div class="timer"><i id="bar"></i></div>
+ <div class="order" id="order"></div>
+ <div class="grid" id="cakes"></div>
+
+ <div class="controls">
+  <button class="shop-btn" style="background:#f5d58b" onclick="closeShop()">🌙 Đóng cửa / Sang ngày</button>
+  <button class="skinshop" onclick="document.getElementById('skinBox').scrollIntoView({behavior:'smooth'})">🧰 Cửa hàng tủ bánh</button>
+  <button class="audio-btn" id="musicBtn" onclick="toggleMusic()">🎵 Nhạc: Bật</button>
+ </div>
+
+ <div class="tablebox">
+  <b>💵 Giá bán & lợi nhuận / chiếc</b>
+  <table>
+   <thead><tr><th>Bánh</th><th>Vốn</th><th>Giá bán</th><th>Lãi</th><th>Mở khóa</th></tr></thead>
+   <tbody id="priceTable"></tbody>
+  </table>
+ </div>
+</section>
+
+<aside class="panel side">
+ <h2>📊 Danh tiếng tiệm</h2>
+ <div class="rating">
+   <div><div class="stars" id="stars">★★★★★</div><small>Đánh giá khách hàng</small></div>
+   <b><span id="rating">3.5</span></b>
+ </div>
+ <div class="meter"><i id="ratingBar"></i></div>
+ <div class="box"><b>🕗 Một ngày làm việc</b><div>08:00 → 22:00 · Ngày <span id="dayNumber">1</span></div><small>Khách đến ngẫu nhiên theo từng khung giờ. Mỗi khách kiên nhẫn tối đa 30 giây. Lấy sai bánh hoặc hết bánh làm khách mất 5 giây kiên nhẫn. Chỉ nhập hàng khi tiệm đóng cửa.</small></div>
+ <div class="box"><b>💬 Đánh giá sau mua</b><div class="reviews" id="reviews"><small>Chưa có đánh giá nào.</small></div></div>
+ <div class="box"><div id="analyticsBox"><b>📈 Doanh thu & Best Seller</b><div class="muted">Chưa có dữ liệu bán hàng.</div></div></div>
+ <div class="box"><b>👥 Loại khách</b><div class="muted">🙂 Dễ tính 55% · 😤 Khó tính 40% · 👑 VIP 5%</div><div class="muted" style="margin-top:5px">Khách VIP mua nhiều hơn và có thể thưởng thêm xu.</div></div>
+
+ <div class="box" id="skinBox">
+  <b>🪟 Skin tủ bánh</b>
+  <div class="skinlist" id="skinList"></div>
+ </div>
+
+ <div class="box">
+  <b>📒 Nhật ký tiệm</b>
+  <div class="log" id="log"></div>
+ </div>
+</aside>
+</main>
+</div>
+
+<div class="overlay" id="end">
+ <div class="modal">
+  <div style="font-size:58px" id="endIcon">🌙</div>
+  <h1 id="endTitle">Hết ngày!</h1>
+  <p id="summary"></p>
+  <div id="dayActions" style="margin-top:12px"><div id="expiryManagement"></div><div id="restockChoices"></div><button onclick="nextDay()">🌅 Mở cửa ngày tiếp theo</button></div><div id="eventActions" style="margin-top:12px;display:none"></div>
+  <div id="loseActions" style="display:none;margin-top:12px"><button onclick="restartGame()">🔄 Mở tiệm lại</button><button class="secondary" onclick="location.reload()">🏠 Đặt lại từ đầu</button></div>
+ </div>
+</div>
+<div class="overlay" id="repairOverlay"><div class="modal"><div style="font-size:54px">⚡</div><h1>⚡ Tủ bị mất điện!</h1><p id="repairText">Tủ đang mất điện. Hãy nối 6 dây theo đúng màu trước khi hết thời gian để bảo vệ bánh.</p><div class="repair-timer">⏱️ <span id="repairTimer">20</span>s</div><div class="repair-grid" id="repairGrid"></div><p class="muted">Cách chơi: chọn 2 đầu dây cùng màu để nối. Có 3 cặp cần hoàn thành.</p></div></div>
+<div class="toast" id="toast"></div>
+
+<script src="game.js"></script>
+</body>
+</html>
